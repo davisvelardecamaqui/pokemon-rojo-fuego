@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+  >
+  <meta name="theme-color" content="#05080d">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Pokémon Rojo Fuego</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      background: #05080d;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body,
+    #game {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      overscroll-behavior: none;
+      background: #05080d;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    #game {
+      position: absolute;
+      inset: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: #05080d;
+    }
+
+    noscript {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      color: #fff;
+      font: 600 1rem/1.5 system-ui, sans-serif;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main id="game" aria-label="Emulador de Pokémon Rojo Fuego"></main>
+  <noscript>Activa JavaScript para iniciar el emulador.</noscript>
+
+  <script>
+    "use strict";
+
+    // EmulatorJS: Game Boy Advance, ROM alojada en la raíz del repositorio.
+    window.EJS_player = "#game";
+    window.EJS_core = "gba";
+    window.EJS_controlScheme = "gba";
+    window.EJS_gameName = "Pokemon - Edicion Rojo Fuego (Spain)";
+    window.EJS_gameID = 1001;
+    window.EJS_gameUrl = "./Pokemon%20-%20Edicion%20Rojo%20Fuego%20(Spain).gba";
+    window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+
+    window.EJS_language = "es-ES";
+    window.EJS_disableAutoLang = true;
+    window.EJS_startOnLoaded = true;
+    window.EJS_backgroundColor = "#05080d";
+    window.EJS_color = "#ef3340";
+    window.EJS_volume = 0.7;
+
+    // Fuerza el guardado SRAM al almacenamiento persistente del navegador.
+    window.EJS_fixedSaveInterval = 10000;
+    window.EJS_defaultOptions = {
+      "save-state-location": "browser",
+      "save-state-slot": 1,
+      "virtual-gamepad": "enabled",
+      "fastForward": "disabled",
+      "ff-ratio": "2.0"
+    };
+
+    // Conserva en la barra las acciones esenciales para móvil.
+    window.EJS_Buttons = {
+      playPause: true,
+      restart: true,
+      mute: true,
+      settings: true,
+      fullscreen: true,
+      saveState: true,
+      loadState: true,
+      quickSave: true,
+      quickLoad: true,
+      saveSavFiles: true,
+      loadSavFiles: true,
+      screenRecord: false,
+      screenshot: false,
+      cheat: false,
+      cacheManager: false,
+      exitEmulation: false
+    };
+
+    // Distribución táctil GBA, con avance rápido 2× mientras se pulsa el botón.
+    window.EJS_VirtualGamepadSettings = [
+      { type: "button", text: "B", id: "b", location: "right", left: 10, top: 70, bold: true, input_value: 0 },
+      { type: "button", text: "A", id: "a", location: "right", left: 81, top: 40, bold: true, input_value: 8 },
+      { type: "dpad", id: "dpad", location: "left", left: "50%", top: "50%", joystickInput: false, inputValues: [4, 5, 6, 7] },
+      { type: "button", text: "START", id: "start", location: "center", left: 60, fontSize: 13, block: true, input_value: 3 },
+      { type: "button", text: "SELECT", id: "select", location: "center", left: -8, fontSize: 13, block: true, input_value: 2 },
+      { type: "button", text: "L", id: "l", location: "left", left: 3, top: -90, bold: true, block: true, input_value: 10 },
+      { type: "button", text: "R", id: "r", location: "right", right: 3, top: -90, bold: true, block: true, input_value: 11 },
+      { type: "button", text: "2×", id: "speed_fast", location: "center", left: -42, top: 50, fontSize: 15, block: true, input_value: 27 }
+    ];
+  </script>
+  <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+</body>
+</html>
+
