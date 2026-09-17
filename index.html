@@ -84,6 +84,26 @@
       outline-offset: 3px;
     }
 
+    /* En vertical, los accesos auxiliares quedan debajo de los controles
+       correspondientes sin mover la cruceta, A, B, Start ni Select. */
+    @media (orientation: portrait) {
+      #speed-toggle {
+        top: auto;
+        bottom: max(14px, env(safe-area-inset-bottom));
+        left: max(14px, env(safe-area-inset-left));
+      }
+
+      #game .ejs_virtualGamepad_open {
+        top: auto !important;
+        right: max(14px, env(safe-area-inset-right)) !important;
+        bottom: max(14px, env(safe-area-inset-bottom));
+        width: 44px;
+        height: 44px;
+        padding: 8px;
+        opacity: 0.72 !important;
+      }
+    }
+
     noscript {
       position: fixed;
       inset: 0;
@@ -115,7 +135,9 @@
 
     window.EJS_language = "es-ES";
     window.EJS_disableAutoLang = true;
-    window.EJS_startOnLoaded = true;
+    // EJS_ready inicia el juego después de preparar el desbloqueo de audio.
+    // Esto evita la carrera que podía mostrar una pantalla que esperaba toque.
+    window.EJS_startOnLoaded = false;
     window.EJS_backgroundColor = "#05080d";
     window.EJS_color = "#ef3340";
     window.EJS_volume = 0.7;
@@ -184,6 +206,13 @@
       emulator.checkStarted = resumeAudio;
       for (const event of ["pointerdown", "touchstart", "keydown"]) {
         document.addEventListener(event, resumeAudio, { capture: true, passive: true });
+      }
+
+      // Arranque visual inmediato. El navegador puede mantener el audio en
+      // silencio hasta el primer toque, pero el juego ya queda ejecutándose.
+      const startButton = emulator.elements.parent.querySelector(".ejs_start_button");
+      if (startButton && !emulator.started) {
+        emulator.startButtonClicked(startButton);
       }
     };
     window.EJS_onGameStart = function () {
